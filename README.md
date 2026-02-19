@@ -110,8 +110,16 @@ Returns available prompt templates.
 
 ```json
 [
-  { "id": "default", "name": "Default Prompt", "description": "General-purpose prompt" },
-  { "id": "sales", "name": "Sales Prompt", "description": "Optimized for sales" }
+  {
+    "id": "default",
+    "name": "Default Prompt",
+    "description": "General-purpose prompt"
+  },
+  {
+    "id": "sales",
+    "name": "Sales Prompt",
+    "description": "Optimized for sales"
+  }
 ]
 ```
 
@@ -121,8 +129,16 @@ Returns available AI models.
 
 ```json
 [
-  { "id": "pro", "name": "Pro", "description": "Highest quality, lowest latency" },
-  { "id": "standard", "name": "Standard", "description": "Balanced quality and cost" }
+  {
+    "id": "pro",
+    "name": "Pro",
+    "description": "Highest quality, lowest latency"
+  },
+  {
+    "id": "standard",
+    "name": "Standard",
+    "description": "Balanced quality and cost"
+  }
 ]
 ```
 
@@ -319,17 +335,51 @@ These are optional but will positively impact your evaluation:
 
 ## Evaluation Criteria
 
-| Area | What we look for |
-|------|-----------------|
-| **Code quality** | Clean, readable, well-organized code |
-| **React patterns** | Proper use of hooks, state management, component composition |
-| **API integration** | Correct HTTP methods, error handling, loading states |
-| **TypeScript** | Proper typing, interfaces, type safety |
-| **Error handling** | Graceful failures, user feedback, edge cases |
-| **Attention to detail** | Following instructions, matching existing code style |
+| Area                    | What we look for                                             |
+| ----------------------- | ------------------------------------------------------------ |
+| **Code quality**        | Clean, readable, well-organized code                         |
+| **React patterns**      | Proper use of hooks, state management, component composition |
+| **API integration**     | Correct HTTP methods, error handling, loading states         |
+| **TypeScript**          | Proper typing, interfaces, type safety                       |
+| **Error handling**      | Graceful failures, user feedback, edge cases                 |
+| **Attention to detail** | Following instructions, matching existing code style         |
 
 ## Time Expectation
 
 This task is designed to take approximately **2–3 hours**. Focus on completing the required tasks well rather than rushing through the bonus tasks.
 
 Good luck!
+
+## Implementation Plan
+
+- The static UI was connected to the mock API while keeping networking, form logic, and presentation separated for maintainability.
+
+- Types: Centralized all API and form types in types/agent.ts to ensure type safety and avoid duplication.
+
+- API Layer: Created a reusable API client (lib/api.ts) to standardize requests, error handling, and response parsing.
+
+- Data Fetching: Implemented a generic useApi hook to fetch dropdown data (languages, voices, prompts, models) with loading and error states.
+
+- Form State: Built useAgentForm to manage controlled fields, dirty state detection, and save/update logic.
+
+- File Upload: Implemented useFileUpload to handle the 3-step upload flow (signed URL → upload → register) with per-file status tracking.
+
+- Component Structure: Split the large form into smaller focused components to improve readability and scalability.
+
+- Validation & Feedback: Added a validation module and a reusable toast system for success and error notifications.
+
+- The final structure follows:
+
+UI → Hooks → API → Types
+
+## What I Would Improve With More Time
+
+- Use React Query for caching and request deduplication
+
+- Use React Hook Form + Zod for more robust form state and validation
+
+- Split the BasicSettingsSection into smaller components
+
+- Create separate components for Call Script and Service/Product Description (maybe create reusable component for both since they are similar)
+
+- UI/UX improvements
